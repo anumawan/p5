@@ -1,13 +1,13 @@
 // center point
 var centerX = 0.0, centerY = 0.0;
 
-var radius = 45, rotAngle = -90;
+var radius = 100, rotAngle = -90;
 var accelX = 0.0, accelY = 0.0;
 var deltaX = 0.0, deltaY = 0.0;
-var springing = 0.009, damping = 0.98;
+var springing = 0.01, damping = 0.2;
 
 //corner nodes
-var nodes = 5;
+var nodes = 100;
 
 //zero fill arrays
 var nodeStartX = [];
@@ -21,11 +21,11 @@ var frequency = [];
 var organicConstant = 1.0;
 
 function setup() {
-  createCanvas(710, 400);
+  createCanvas(600, 600);
 
   //center shape in window
-  centerX = width/2;
-  centerY = height/2;
+  centerX = width/3;
+  centerY = height/3;
 
   //initialize arrays to 0
   for (var i=0; i<nodes; i++){
@@ -38,16 +38,16 @@ function setup() {
 
   // iniitalize frequencies for corner nodes
   for (var i=0; i<nodes; i++){
-    frequency[i] = random(8, 12);
+    frequency[i] = random(1, 12);
   }
 
   noStroke();
-  frameRate(20);
+  frameRate(120);
 }
 
 function draw() {
   //fade background
-  fill(24, 100);
+  fill(100, 100);
   rect(0,0,width, height);
   drawShape();
   moveShape();
@@ -58,12 +58,12 @@ function drawShape() {
   for (var i=0; i<nodes; i++){
     nodeStartX[i] = centerX+cos(radians(rotAngle))*radius;
     nodeStartY[i] = centerY+sin(radians(rotAngle))*radius;
-    rotAngle += 120.0/nodes;
+    rotAngle += 50.0/nodes;
   }
 
   // draw polygon
   curveTightness(organicConstant);
-  fill(21, 231, 65);
+  fill(212, 231, 65);
   beginShape();
   for (var i=0; i<nodes; i++){
     curveVertex(nodeX[i], nodeY[i]);
